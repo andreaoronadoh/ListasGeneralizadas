@@ -287,6 +287,97 @@ public class ArbolnArio {
     Nodo getRaiz(){
         return raiz;
     }
+    
+    
+    
+    
+ public void eliminar( int dato) {
+        Nodo raiz = this.raiz;
+        Nodo Anterior, nodoactual;
 
+        boolean datoe = buscar(dato);
+
+        nodoactual = raiz;
+
+        Anterior = nodoactual;
+
+        if (datoe == true) {
+
+            while (raiz != null) {
+                
+                
+                if (nodoactual.dato == dato) {
+
+                    // eliminamos cuando el nodo esta apuntando a nulo
+                    if (nodoactual.liga == null) {
+
+                        Anterior.liga = null;
+                        
+                        
+                       // eliminar si es diferente a nulo y no es lista de listas  
+                    } else if (nodoactual.liga != null) {
+
+                        Anterior.liga = nodoactual.liga;
+                        nodoactual.liga = null;
+                        
+                    //eliminar si el nodo es un nodo cabeza (lista de listas)
+                    } else if (nodoactual.ligaLista != null) {
+
+                        Anterior.ligaLista = nodoactual.liga;
+                        nodoactual.liga = null;
+                        nodoactual = Anterior.ligaLista;
+                        Anterior.ligaLista = nodoactual.ligaLista;
+
+                        Nodo aux;
+
+                        aux = nodoactual.ligaLista;
+                       // ciclo para encontrar el ultimo nodo 
+                        while (aux.liga != null) {
+
+                            aux = aux.liga;
+                        }
+
+                        // esto es para enlazar el nodo cuando el nodo cabeza es eliminado y tiene hijos 
+                        aux.liga = nodoactual.liga;
+
+                    }
+                    if(dato == this.raiz.dato){
+                        
+                        if( nodoactual.ligaLista == null) {
+                            nodoactual = nodoactual.liga;
+                            raiz = nodoactual;
+
+                        } else {
+                            
+                            nodoactual = nodoactual.liga;
+                            Anterior=nodoactual;
+                            nodoactual = nodoactual.ligaLista;
+                            
+                            Nodo Aux;
+
+                            Aux = nodoactual;
+                            
+                            while (Aux.liga != null) {
+                                Aux=Aux.liga;
+                             
+                            }
+                            Aux.liga=Anterior.liga;
+
+                        }
+
+                    }
+
+                }
+             raiz=raiz.liga;
+            } 
+        }
+
+    }
+
+    
+    
+    
+    
+    
 
 }
